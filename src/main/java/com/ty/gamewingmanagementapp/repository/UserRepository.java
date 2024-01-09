@@ -8,6 +8,4 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     User findByRole(Role role);
 
     User findByEmailAndPassword(String email,String passowrd);
-
-    User findByRoleAndId(Role role, int ownerId);
 }

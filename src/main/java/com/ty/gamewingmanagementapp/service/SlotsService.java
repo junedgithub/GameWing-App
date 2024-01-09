@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class SlotsService {
     @Autowired
     private SlotsDao slotsDao;
-    public ResponseEntity<ResponseStructure<Slots>> saveSlot(Slots slot, int playAreaId) {
-        Slots recSlot = slotsDao.saveSlots(slot,playAreaId);
+    public ResponseEntity<ResponseStructure<Slots>> saveSlot(Slots slot) {
+        Slots recSlot = slotsDao.saveSlots(slot);
         if (recSlot!=null) {
             ResponseStructure<Slots> responseStructure = new ResponseStructure<>();
             responseStructure.setStatusCode(HttpStatus.CREATED.value());
@@ -30,24 +30,7 @@ public class SlotsService {
     }
 
     public ResponseEntity<ResponseStructure<Slots>> deleteSlot(int slot) {
-        Slots recSlot = null;
-        if (recSlot!=null) {
-            ResponseStructure<Slots> responseStructure = new ResponseStructure<>();
-            responseStructure.setStatusCode(HttpStatus.CREATED.value());
-            responseStructure.setMessage("Slot Deleted");
-            responseStructure.setData(recSlot);
-            return new ResponseEntity<ResponseStructure<Slots>>(responseStructure,HttpStatus.CREATED);
-        }else{
-            ResponseStructure<Slots> responseStructure = new ResponseStructure<>();
-            responseStructure.setStatusCode(HttpStatus.BAD_REQUEST.value());
-            responseStructure.setMessage("Not Created");
-            responseStructure.setData(recSlot);
-            return new ResponseEntity<ResponseStructure<Slots>>(responseStructure,HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    public ResponseEntity<ResponseStructure<Slots>> addSlotToPlayArea(int slotId, int playAreaId) {
-        Slots recSlot = slotsDao.addSlotToPlayArea(slotId,playAreaId);
+        Slots recSlot = slotsDao.deleteSlots(slot);
         if (recSlot!=null) {
             ResponseStructure<Slots> responseStructure = new ResponseStructure<>();
             responseStructure.setStatusCode(HttpStatus.CREATED.value());

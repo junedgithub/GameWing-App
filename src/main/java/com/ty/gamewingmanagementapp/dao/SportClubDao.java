@@ -5,6 +5,9 @@ import com.ty.gamewingmanagementapp.dto.SportClub;
 import com.ty.gamewingmanagementapp.dto.User;
 import com.ty.gamewingmanagementapp.repository.SportClubRepository;
 import com.ty.gamewingmanagementapp.repository.UserRepository;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,12 +20,17 @@ public class SportClubDao {
     public SportClub addSportClub(SportClub sportClub) {
         User user = userRepository.findByRole(Role.Owner);
         if (user!=null) {
-            user.setSportClubs(sportClub);
-            sportClub.setOwner(user);
-            sportClubRepository.save(sportClub);
-            userRepository.save(user);
-            return sportClub;
+            return sportClubRepository.save(sportClub);
         }else
             return null;
     }
+	public SportClub findSportClubById(int sportclubId) {
+		Optional<SportClub> club = sportClubRepository.findById(sportclubId);
+		
+		if(club.isPresent())
+		{
+			return club.get();
+		}
+		return  null;
+	}
 }

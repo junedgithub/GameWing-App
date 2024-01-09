@@ -1,8 +1,9 @@
 package com.ty.gamewingmanagementapp.dto;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -13,8 +14,10 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
+    @JsonIgnore
     private User customer_id;
     @OneToOne
+    @JsonIgnore
     private Slots slot_id;
     @CreationTimestamp
     private LocalDateTime dateTime;

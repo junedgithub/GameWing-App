@@ -1,6 +1,5 @@
 package com.ty.gamewingmanagementapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -12,20 +11,18 @@ public class Slots {
     private int slotId;
     private String sportType;
     private SlotStatus slotStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "playarea_id")
-    @JsonIgnore
-    private PlayArea playArea;
-
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "sportclub_id")
+    private SportClub sportClub;
     @OneToOne
     private Booking booking;
-    public PlayArea getPlayArea() {
-        return playArea;
+
+    public SportClub getSportClub() {
+        return sportClub;
     }
 
-    public void setPlayArea(PlayArea playArea) {
-        this.playArea = playArea;
+    public void setSportClub(SportClub sportClub) {
+        this.sportClub = sportClub;
     }
 
     public Booking getBooking() {
@@ -65,11 +62,11 @@ public class Slots {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Slots slots = (Slots) o;
-        return slotId == slots.slotId && Objects.equals(sportType, slots.sportType) && slotStatus == slots.slotStatus && Objects.equals(playArea, slots.playArea) && Objects.equals(booking, slots.booking);
+        return slotId == slots.slotId && Objects.equals(sportType, slots.sportType) && slotStatus == slots.slotStatus && Objects.equals(sportClub, slots.sportClub) && Objects.equals(booking, slots.booking);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(slotId, sportType, slotStatus, playArea, booking);
+        return Objects.hash(slotId, sportType, slotStatus, sportClub, booking);
     }
 }
