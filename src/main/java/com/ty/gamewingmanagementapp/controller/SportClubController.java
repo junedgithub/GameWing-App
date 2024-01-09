@@ -9,10 +9,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sportclub")
 public class SportClubController {
     @Autowired
     private SportClubService sportClubService;
@@ -23,5 +25,6 @@ public class SportClubController {
     public ResponseEntity<ResponseStructure<SportClub>> addSportClub(@RequestBody SportClub sportClub){
         return sportClubService.addSportClub(sportClub);
     }
+
 
 }

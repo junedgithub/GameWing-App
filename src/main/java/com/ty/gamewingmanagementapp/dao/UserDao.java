@@ -1,9 +1,7 @@
 package com.ty.gamewingmanagementapp.dao;
 
-import com.ty.gamewingmanagementapp.dto.PlayArea;
 import com.ty.gamewingmanagementapp.dto.Role;
 import com.ty.gamewingmanagementapp.dto.User;
-import com.ty.gamewingmanagementapp.repository.PlayAreaRepository;
 import com.ty.gamewingmanagementapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,12 +12,13 @@ import java.util.Optional;
 public class UserDao {
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private PlayAreaRepository playAreaRepository;
     public User register(User user) {
+        if(user.getRole().equals(Role.Admin)){
             userRepository.save(user);
             return user;
+        }else {
+            return null;
+        }
     }
 
     public User addOwner(User owner) {
@@ -56,18 +55,11 @@ public class UserDao {
         }
     }
 
-    public User addManager(User manager, int playAreaId) {
+    public User addManager(User manager) {
         User admin = userRepository.findByRole(Role.Admin);
         if (admin!=null){
-
-            Optional<PlayArea> playArea1 = playAreaRepository.findById(playAreaId);
-            PlayArea playArea=playArea1.get();
-            System.out.println(playArea+"========================================================");
-            manager.setPlayArea(playArea);
-            playArea.setManager(manager);
-            userRepository.save(manager);
-            playAreaRepository.save(playArea);
-            return manager;
+            User user = userRepository.save(manager);
+            return user;
         }else{
             return null;
         }

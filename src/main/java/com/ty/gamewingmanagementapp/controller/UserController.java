@@ -1,5 +1,6 @@
 package com.ty.gamewingmanagementapp.controller;
 
+import com.ty.gamewingmanagementapp.dto.Booking;
 import com.ty.gamewingmanagementapp.dto.PlayArea;
 import com.ty.gamewingmanagementapp.dto.ResponseStructure;
 import com.ty.gamewingmanagementapp.dto.SportClub;
@@ -56,9 +57,9 @@ public class UserController {
 
     @Operation(description = "Add Manager",summary = "Manager Details get added in database")
     @ApiResponses(value = {@ApiResponse(description = "Register manager",responseCode = "302"),@ApiResponse(description = "Not Created",responseCode = "404")})
-        @PostMapping("/addmanager/playAreaId/{playAreaId}")
-    public ResponseEntity<ResponseStructure<User>> addManager(@RequestBody User manager,@PathVariable int playAreaId){
-        return userService.addManager(manager,playAreaId);
+    @PostMapping("/addmanager")
+    public ResponseEntity<ResponseStructure<User>> addManager(@RequestBody User manager){
+        return userService.addManager(manager);
     }
 
     @Operation(description = "Delete Manager",summary = "Manager Details get deleted in database")
@@ -95,4 +96,14 @@ public class UserController {
     public ResponseEntity<ResponseStructure<User>> updateCustomer(@PathVariable int id,@RequestBody User updateCustomer){
         return userService.updateManager(id,updateCustomer);
     }
+
+    @Operation(description = "Add SportClub",summary = "SportClub get added in database")
+    @ApiResponses(value = {@ApiResponse(description = "Add SportClub",responseCode = "302"),@ApiResponse(description = "Not Created",responseCode = "404")})
+    @PostMapping("/addsportclub")
+    public ResponseEntity<ResponseStructure<SportClub>> addSportClub(@RequestBody SportClub sportClub){
+        return userService.addSportClub(sportClub);
+    }
+
+   
+
 }
