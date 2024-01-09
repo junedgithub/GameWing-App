@@ -16,25 +16,6 @@ public class User {
     private String email;
     private String password;
 
-    private Role role;
-    @OneToOne
-    private Booking booking;
-
-    public PlayArea getPlayArea() {
-        return playArea;
-    }
-
-    public void setPlayArea(PlayArea playArea) {
-        this.playArea = playArea;
-    }
-
-    @OneToOne
-    @JsonIgnore
-    private SportClub sportClubs;
-
-    @OneToOne
-    private PlayArea playArea;
-
     public Booking getBooking() {
         return booking;
     }
@@ -50,6 +31,13 @@ public class User {
     public void setSportClubs(SportClub sportClubs) {
         this.sportClubs = sportClubs;
     }
+
+    private Role role;
+    @OneToOne
+    private Booking booking;
+    @OneToOne
+    @JsonIgnore
+    private SportClub sportClubs;
 
     public int getId() {
         return id;
@@ -93,8 +81,8 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;   //equal
+        if (o == null || getClass() != o.getClass()) return false;   //not equal
         User user = (User) o;
         return id == user.id && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && role == user.role && Objects.equals(booking, user.booking) && Objects.equals(sportClubs, user.sportClubs);
     }

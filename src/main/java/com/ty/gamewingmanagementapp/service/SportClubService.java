@@ -1,6 +1,7 @@
 package com.ty.gamewingmanagementapp.service;
 
 import com.ty.gamewingmanagementapp.dao.SportClubDao;
+import com.ty.gamewingmanagementapp.dto.PlayArea;
 import com.ty.gamewingmanagementapp.dto.ResponseStructure;
 import com.ty.gamewingmanagementapp.dto.SportClub;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,12 @@ public class SportClubService {
             return new ResponseEntity<ResponseStructure<SportClub>>(responseStructure,HttpStatus.BAD_REQUEST);
         }
     }
+
+	public SportClub findSportClub(int sportclubId) {
+		SportClub sp=sportClubDao.findSportClubById(sportclubId);
+		System.out.println("=================================="+sp.getOwner()+"===================");
+		return sp;
+		
+		
+	}
 }
