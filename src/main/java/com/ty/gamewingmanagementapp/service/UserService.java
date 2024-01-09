@@ -3,6 +3,7 @@ package com.ty.gamewingmanagementapp.service;
 import com.ty.gamewingmanagementapp.dao.SportClubDao;
 import com.ty.gamewingmanagementapp.dao.UserDao;
 import com.ty.gamewingmanagementapp.dto.ResponseStructure;
+import com.ty.gamewingmanagementapp.dto.SportClub;
 import com.ty.gamewingmanagementapp.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -84,8 +85,8 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<ResponseStructure<User>> addManager(User manager,int playAreaId) {
-        User receivedUser = userDao.addManager(manager,playAreaId);
+    public ResponseEntity<ResponseStructure<User>> addManager(User manager) {
+        User receivedUser = userDao.addManager(manager);
         if (receivedUser!=null) {
             ResponseStructure<User> responseStructure = new ResponseStructure<>();
             responseStructure.setStatusCode(HttpStatus.CREATED.value());
@@ -183,6 +184,23 @@ public class UserService {
             responseStructure.setMessage("Not Created");
             responseStructure.setData(receivedUser);
             return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<ResponseStructure<SportClub>> addSportClub(SportClub sportClub) {
+        SportClub receivedSportClub = sportClubDao.addSportClub(sportClub);
+        if (receivedSportClub!=null) {
+            ResponseStructure<SportClub> responseStructure = new ResponseStructure<>();
+            responseStructure.setStatusCode(HttpStatus.OK.value());
+            responseStructure.setMessage("Added Customer");
+            responseStructure.setData(receivedSportClub);
+            return new ResponseEntity<ResponseStructure<SportClub>>(responseStructure,HttpStatus.OK);
+        }else{
+            ResponseStructure<SportClub> responseStructure = new ResponseStructure<>();
+            responseStructure.setStatusCode(HttpStatus.BAD_REQUEST.value());
+            responseStructure.setMessage("Not Created");
+            responseStructure.setData(receivedSportClub);
+            return new ResponseEntity<ResponseStructure<SportClub>>(responseStructure,HttpStatus.BAD_REQUEST);
         }
     }
 }

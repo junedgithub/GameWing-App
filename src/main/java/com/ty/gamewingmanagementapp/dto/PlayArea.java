@@ -2,41 +2,28 @@ package com.ty.gamewingmanagementapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
 public class PlayArea {
+    public SportClub getSportClub() {
+        return sportClub;
+    }
+
+    public void setSportClub(SportClub sportClub) {
+        this.sportClub = sportClub;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int areaId;
     private String sport;
     private double chargePerHour;
-
-    public User getManager() {
-        return manager;
-    }
-
-    public void setManager(User manager) {
-        this.manager = manager;
-    }
-
     @ManyToOne
     @JoinColumn(name = "sportclub_id")
     @JsonIgnore
     private SportClub sportClub;
-    @OneToOne
-    private User manager;
-
-    @OneToMany(mappedBy = "playArea", cascade = CascadeType.PERSIST)
-    @JsonIgnore
-    private List<Slots> slotsList;
 
     public int getAreaId() {
         return areaId;
@@ -62,19 +49,16 @@ public class PlayArea {
         this.chargePerHour = chargePerHour;
     }
 
-    public List<Slots> getSlotsList() {
-        return slotsList;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlayArea playArea = (PlayArea) o;
+        return areaId == playArea.areaId && Double.compare(chargePerHour, playArea.chargePerHour) == 0 && Objects.equals(sport, playArea.sport) && Objects.equals(sportClub, playArea.sportClub);
     }
 
-    public void setSlotsList(List<Slots> slotsList) {
-        this.slotsList = slotsList;
-    }
-
-    public SportClub getSportClub() {
-        return sportClub;
-    }
-
-    public void setSportClub(SportClub sportClub) {
-        this.sportClub = sportClub;
+    @Override
+    public int hashCode() {
+        return Objects.hash(areaId, sport, chargePerHour, sportClub);
     }
 }
