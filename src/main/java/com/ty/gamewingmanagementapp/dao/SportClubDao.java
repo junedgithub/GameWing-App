@@ -19,8 +19,13 @@ public class SportClubDao {
     private UserRepository userRepository;
     public SportClub addSportClub(SportClub sportClub) {
         User user = userRepository.findByRole(Role.Owner);
+        sportClub.setOwner(user);
+        user.setSportClubs(sportClub);
         if (user!=null) {
-            return sportClubRepository.save(sportClub);
+        	
+            SportClub receivedSportClub = sportClubRepository.save(sportClub);
+            userRepository.save(user);
+            return receivedSportClub;
         }else
             return null;
     }

@@ -31,10 +31,27 @@ public class SportClubService {
         }
     }
 
-	public SportClub findSportClub(int sportclubId) {
+	public ResponseEntity<ResponseStructure<SportClub>> findSportClub(int sportclubId) {
 		SportClub sp=sportClubDao.findSportClubById(sportclubId);
-		System.out.println("=================================="+sp.getOwner()+"===================");
-		return sp;
+		
+		if(sp != null)
+		{
+		ResponseStructure<SportClub> responseStructure = new ResponseStructure<>();
+		responseStructure.setStatusCode(HttpStatus.FOUND.value());
+		responseStructure.setMessage("Success");
+		responseStructure.setData(sp);
+		
+		return new ResponseEntity<ResponseStructure<SportClub>>(responseStructure, HttpStatus.FOUND);
+		}else
+		{
+			ResponseStructure<SportClub> responseStructure = new ResponseStructure<>();
+			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			responseStructure.setMessage("Found");
+			responseStructure.setData(null);
+			
+			return new ResponseEntity<ResponseStructure<SportClub>>(responseStructure, HttpStatus.NOT_FOUND);
+		}
+		
 		
 		
 	}

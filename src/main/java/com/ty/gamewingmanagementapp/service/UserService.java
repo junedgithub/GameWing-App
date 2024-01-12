@@ -106,10 +106,10 @@ public class UserService {
         User receivedUser = userDao.deleteManager(id);
         if (receivedUser!=null) {
             ResponseStructure<User> responseStructure = new ResponseStructure<>();
-            responseStructure.setStatusCode(HttpStatus.CREATED.value());
+            responseStructure.setStatusCode(HttpStatus.OK.value());
             responseStructure.setMessage("Delete Manager");
             responseStructure.setData(receivedUser);
-            return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.CREATED);
+            return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.OK);
         }else{
             ResponseStructure<User> responseStructure = new ResponseStructure<>();
             responseStructure.setStatusCode(HttpStatus.BAD_REQUEST.value());
