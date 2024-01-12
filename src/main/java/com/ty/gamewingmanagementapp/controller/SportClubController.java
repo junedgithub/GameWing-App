@@ -25,6 +25,15 @@ public class SportClubController {
     public ResponseEntity<ResponseStructure<SportClub>> addSportClub(@RequestBody SportClub sportClub){
         return sportClubService.addSportClub(sportClub);
     }
+    
+    @Operation(description = "Find SportClub",summary = "Find SportClub Details Find database")
+    @ApiResponses(value = {@ApiResponse(description = "Sport Club Found",responseCode = "302"),@ApiResponse(description = "Not Found",responseCode = "404")})
+    @PostMapping("/findsportclubbyid/sportClubId/{sportClubId}")
+    public ResponseEntity<ResponseStructure<SportClub>> findSportClubById(@PathVariable int sportClubId){
+        return sportClubService.findSportClub(sportClubId);
+    }
+    
+    
 
 
 }
